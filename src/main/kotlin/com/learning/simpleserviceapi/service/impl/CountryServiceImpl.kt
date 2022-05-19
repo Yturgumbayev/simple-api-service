@@ -1,15 +1,68 @@
 package com.learning.simpleserviceapi.service.impl
 
 import com.learning.simpleserviceapi.dto.CountryDto
+import com.learning.simpleserviceapi.entity.CountryEntity
+import com.learning.simpleserviceapi.repository.CountryRepository
 import com.learning.simpleserviceapi.service.CountryService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class CountryServiceImpl : CountryService {
+class CountryServiceImpl (
+    private val countryRepository: CountryRepository
+    ) : CountryService {
     override fun getAll(): List<CountryDto> {
-        return listOf(
-            CountryDto(1, "Казахстан", 19_500_000),
-            CountryDto(2, "Украина", 40_000_000),
-        )
+        return countryRepository.findAll().map {it.toDto()}
     }
+
+    override fun getById(id: Int): CountryDto {
+        return countryRepository.findByIdOrNull(id)
+            ?.toDto()
+            ?: throw RuntimeException("Country not found")
+    }
+
+    override fun search(prefix: String): List<CountryDto> =
+        countryRepository.findByCountryNameStartsWithOrderByCountryName(prefix)
+            .map { it.toDto() }
+
+    override fun create(dto: CountryDto): Int {
+        return countryRepository.save(dto.toEntity()).id
+    }
+
+    override fun update(id: Int, dto: CountryDto) {
+        val existingCountry = countryRepository.findByIdOrNull(id)
+            ?: throw RuntimeException("Country not found")
+
+        existingCountry.countryName = dto.countryName
+        existingCountry.capital = dto.capital
+        existingCountry.population = dto.population
+        existingCountry.isNatoMember = dto.isNatoMember
+
+        countryRepository.save(existingCountry)
+    }
+
+    override fun delete(id: Int) {
+        val existingCountry = countryRepository.findByIdOrNull(id)
+            ?: throw RuntimeException("Country not found")
+
+        countryRepository.deleteById(existingCountry.id)
+    }
+
+    private fun CountryEntity.toDto(): CountryDto =
+        CountryDto(
+            id = this.id,
+            countryName = this.countryName,
+            capital = this.capital,
+            population = this.population,
+            isNatoMember = this.isNatoMember
+        )
+
+    private fun CountryDto.toEntity(): CountryEntity =
+        CountryEntity(
+            id = 0,
+            countryName = this.countryName,
+            capital = this.capital,
+            population = this.population,
+            isNatoMember = this.isNatoMember
+        )
 }
