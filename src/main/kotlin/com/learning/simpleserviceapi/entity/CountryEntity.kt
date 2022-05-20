@@ -1,10 +1,11 @@
 package com.learning.simpleserviceapi.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import javax.persistence.*
 
 @Entity
-//@Table(name = "countries")
-
+@Table(name = "countries", schema = "public")
+@JsonIgnoreProperties("hibernateLazyInitializer", "handler")
 class CountryEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

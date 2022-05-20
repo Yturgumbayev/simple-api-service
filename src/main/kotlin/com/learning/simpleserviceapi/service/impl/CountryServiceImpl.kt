@@ -6,7 +6,6 @@ import com.learning.simpleserviceapi.repository.CountryRepository
 import com.learning.simpleserviceapi.service.CountryService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-
 @Service
 class CountryServiceImpl (
     private val countryRepository: CountryRepository
@@ -14,21 +13,17 @@ class CountryServiceImpl (
     override fun getAll(): List<CountryDto> {
         return countryRepository.findAll().map {it.toDto()}
     }
-
     override fun getById(id: Int): CountryDto {
         return countryRepository.findByIdOrNull(id)
             ?.toDto()
             ?: throw RuntimeException("Country not found")
     }
-
     override fun search(prefix: String): List<CountryDto> =
         countryRepository.findByCountryNameStartsWithOrderByCountryName(prefix)
             .map { it.toDto() }
-
     override fun create(dto: CountryDto): Int {
         return countryRepository.save(dto.toEntity()).id
     }
-
     override fun update(id: Int, dto: CountryDto) {
         val existingCountry = countryRepository.findByIdOrNull(id)
             ?: throw RuntimeException("Country not found")
@@ -40,14 +35,12 @@ class CountryServiceImpl (
 
         countryRepository.save(existingCountry)
     }
-
     override fun delete(id: Int) {
         val existingCountry = countryRepository.findByIdOrNull(id)
             ?: throw RuntimeException("Country not found")
 
         countryRepository.deleteById(existingCountry.id)
     }
-
     private fun CountryEntity.toDto(): CountryDto =
         CountryDto(
             id = this.id,
@@ -56,7 +49,6 @@ class CountryServiceImpl (
             population = this.population,
             isNatoMember = this.isNatoMember
         )
-
     private fun CountryDto.toEntity(): CountryEntity =
         CountryEntity(
             id = 0,
