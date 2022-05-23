@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/countries")
 class CountryController(private val countryService: CountryService) {
+
     @GetMapping
     fun getAll(): List<CountryDto> = countryService.getAll()
 
