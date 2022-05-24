@@ -2,6 +2,7 @@ package com.learning.simpleserviceapi.service.impl
 
 import com.learning.simpleserviceapi.dto.CountryDto
 import com.learning.simpleserviceapi.entity.CountryEntity
+import com.learning.simpleserviceapi.exceptions.CountryNotFoundException
 import com.learning.simpleserviceapi.repository.CountryRepository
 import com.learning.simpleserviceapi.service.CountryService
 import org.springframework.data.repository.findByIdOrNull
@@ -20,7 +21,7 @@ class CountryServiceImpl (
     override fun getById(id: Int): CountryDto {
         return countryRepository.findByIdOrNull(id)
             ?.toDto()
-            ?: throw RuntimeException("Country not found")
+            ?: throw CountryNotFoundException(id)
     }
 
     override fun search(prefix: String): List<CountryDto> =
@@ -33,7 +34,7 @@ class CountryServiceImpl (
 
     override fun update(id: Int, dto: CountryDto) {
         val existingCountry = countryRepository.findByIdOrNull(id)
-            ?: throw RuntimeException("Country not found")
+            ?: throw CountryNotFoundException(id)
 
         existingCountry.countryName = dto.countryName
         existingCountry.capital = dto.capital
@@ -45,7 +46,7 @@ class CountryServiceImpl (
 
     override fun delete(id: Int) {
         val existingCountry = countryRepository.findByIdOrNull(id)
-            ?: throw RuntimeException("Country not found")
+            ?: throw CountryNotFoundException(id)
 
         countryRepository.deleteById(existingCountry.id)
     }
