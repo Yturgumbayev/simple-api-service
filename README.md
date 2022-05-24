@@ -11,7 +11,7 @@
 - GET {{local_host}}countries/{id}
 - GET {{local_host}}countries/search?prefix={prefix}
 - - принимает query param, пример - prefix = "Каз" (чувствителен к регистру)
-- POST {{local_host}}countries/
+- POST {{local_host}}countries
 - - на вход принимает body, прим.:
   {
   "countryName": "String",
