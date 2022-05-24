@@ -28,3 +28,5 @@
      "isNatoMember": Boolean
      }
 - DELETE {{local_host}}countries/{id}
+
+# Коллекция Postman рядом с файлом README - "learning-local.postman_collection.json"
