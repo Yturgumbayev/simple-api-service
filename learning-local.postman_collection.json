@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "2c14e0be-aacb-4ad2-94fa-d72c3048da76",
+		"name": "learning-local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "learning-example-api",
+			"item": [
+				{
+					"name": "Get Countries",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_host}}countries",
+							"host": [
+								"{{local_host}}countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Country by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"countryName\": \"США\",\n    \"capital\": \"Вашингтон\",\n    \"population\": 344545322,\n    \"isNatoMember\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_host}}countries/1",
+							"host": [
+								"{{local_host}}countries"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search country",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_host}}countries/search?prefix=Ка",
+							"host": [
+								"{{local_host}}countries"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "prefix",
+									"value": "Ка"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"countryName\": \"Германия\",\n    \"capital\": \"Берлин\",\n    \"population\": 82652245,\n    \"isNatoMember\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_host}}countries",
+							"host": [
+								"{{local_host}}countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"countryName\": \"Франция\",\n    \"capital\": \"Париж\",\n    \"population\": 78652245,\n    \"isNatoMember\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_host}}countries/3",
+							"host": [
+								"{{local_host}}countries"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local_host}}countries/10",
+							"host": [
+								"{{local_host}}countries"
+							],
+							"path": [
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
